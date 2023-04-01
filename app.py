@@ -6,11 +6,7 @@ def clean_data(data):
     for item in data:
         player = {}
         player['name'] = item['name']
-        guardians = item['guardians'].split(" and ")
-        if isinstance(guardians, list):
-            player['guardians'] = ', '.join(guardians)
-        else:
-            player['guardians'] = guardians
+        player['guardians'] = item['guardians'].split(" and ")
         if item['experience'] == 'NO':
             player['experience'] = False
         if item['experience'] == 'YES':
@@ -57,7 +53,8 @@ def print_team(team):
         if player['experience'] == False:
             inexperienced += 1
         player_name_list.append(player['name'])
-        player_guardian_list.append(player['guardians'])
+        for i in player['guardians']:
+            player_guardian_list.append(i)
     avg_height = round(average_height(team), 1)
     names_str = ', '.join(player_name_list)
     guardians_str = ', '.join(player_guardian_list)
@@ -156,4 +153,3 @@ if __name__ == "__main__":
     clean_players = clean_data(constants.PLAYERS)
     team1, team2, team3 = balance_teams(clean_players, constants.TEAMS)
     main()
-
